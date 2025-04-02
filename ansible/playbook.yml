@@ -1,0 +1,25 @@
+- name: Configure Web Server
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install Nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Start and Enable Nginx Service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Install iptables (if missing)
+      yum:
+        name: iptables
+        state: present
+
+    - name: Open Port 80 in Firewall using iptables
+      shell: |
+        sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+        sudo service iptables save
+      ignore_errors: yes
