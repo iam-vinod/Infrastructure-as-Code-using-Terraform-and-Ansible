@@ -1,9 +1,14 @@
-- name: Configure Web Server
+---
+- name: Configure Web Server on Ubuntu
   hosts: webserver
   become: yes
   tasks:
+    - name: Update APT package index
+      apt:
+        update_cache: yes
+
     - name: Install Nginx
-      yum:
+      apt:
         name: nginx
         state: present
 
@@ -14,12 +19,12 @@
         enabled: yes
 
     - name: Install iptables (if missing)
-      yum:
+      apt:
         name: iptables
         state: present
 
     - name: Open Port 80 in Firewall using iptables
       shell: |
         sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT
-        sudo service iptables save
+        sudo netfilter-persistent save || true
       ignore_errors: yes
