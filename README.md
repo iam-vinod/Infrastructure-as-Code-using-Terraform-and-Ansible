@@ -3,6 +3,7 @@
 ## Project Overview
 This project provisions an EC2 instance on AWS using Terraform and then configures it using Ansible.
 
+```
 #### Project Structure
 Infrastructure-as-Code-using-Terraform/
 │── terraform/
@@ -14,6 +15,8 @@ Infrastructure-as-Code-using-Terraform/
 │   ├── inventory.ini
 │   ├── playbook.yml
 │── README.md
+
+```
 
 ### Technologies Used
 - **Terraform** for Infrastructure as Code (IaC)
